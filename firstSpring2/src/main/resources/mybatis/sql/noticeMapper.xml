@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="NoticeMapper">
+    <resultMap type="Notice" id="NoticeMap">
+        <id property="no" column="NNO"/>        
+		<result property="title" column="NTITLE"/>
+		<result property="writer" column="NWRITER"/>
+		<result property="content" column="NCONTENT"/>
+		<result property="date" column="NDATE"/>
+		<result property="attach" column="ATTACH"/>
+    </resultMap>
+
+    <sql id="noticeHeader">
+	    SELECT NNO, NTITLE, NCONTENT, NWRITER, NCOUNT, NDATE, ATTACH
+		FROM NOTICE
+	</sql>
+    
+    <select id="selectNoticeList" resultMap="NoticeMap">
+       <include refid="noticeHeader"/>
+		ORDER BY NNO DESC
+    </select>
+    
+    <select id="selectNotice" resultMap="NoticeMap">
+        <include refid="noticeHeader"/>
+        WHERE NNO = #{no}
+    </select>
+
+    <insert id="insertNotice" parameterType="Notice">
+        INSERT INTO NOTICE
+		VALUES(SEQ_NNO.NEXTVAL, #{title}, #{writer}, DEFAULT, SYSDATE, #{attach}, #{content})
+    </insert>
+    
+    <update id="updateNotice" parameterType="Notice">
+        UPDATE NOTICE
+        SET NTITLE = #{title}, NCONTENT = #{content}, ATTACH = #{attach}
+        WHERE NNO = #{no}
+    </update>
+    
+    <delete id="deleteNotice" parameterType="Notice">
+		DELETE FROM NOTICE
+		WHERE NNO = #{no}        
+    </delete>
+    
+    <insert id="insertNotice2" parameterType="Notice">
+        INSERT INTO NOTICE2
+		VALUES(130, #{title}, #{writer}, DEFAULT, SYSDATE, #{attach}, #{content})
+    </insert>
+    
+</mapper>

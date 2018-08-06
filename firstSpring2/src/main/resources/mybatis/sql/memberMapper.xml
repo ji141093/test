@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="MemberMapper">
+    <select id="selectMemberId" parameterType="Member" resultType="Member">
+        SELECT USERID, PASSWORD, USERNAME, GENDER, AGE, EMAIL, PHONE, ADDRESS, HOBBY, ENROLLDATE 
+		FROM MEMBER
+		WHERE USERID = #{userid}
+    </select>
+    
+    <insert id="insertMember" parameterType="Member">
+        INSERT INTO MEMBER 
+        VALUES(#{userid}, #{password}, #{username}, #{gender}, #{age}, #{email}, #{phone}, #{address}, #{hobby}, SYSDATE)
+    </insert>
+    
+    <update id="updateMember" parameterType="Member">
+	      UPDATE MEMBER 
+	      SET PASSWORD = #{password}, USERNAME = #{username}, GENDER = #{gender}, AGE = #{age}, EMAIL = #{email}, PHONE = #{phone}, ADDRESS = #{address}, HOBBY = #{hobby}
+	      WHERE USERID = #{userid}
+	</update>
+	
+     <delete id="deleteMember" parameterType="string">
+      	DELETE FROM MEMBER
+      	WHERE USERID = #{userid}
+	</delete>
+  <!-- <select id="selectMemberList" resultType="Member">
+	    SELECT USERID, USERNAME, AGE, EMAIL, PHONE
+	    FROM MEMBER
+	    ORDER BY USERNAME
+  </select>
+  
+  <select id="selectMember" para"src/main/resources/mybatis/sql/memberMapper.xml"meterType="string" resultType="Member">
+	      SELECT USERID, PASSWORD, USERNAME, GENDER, AGE, EMAIL, PHONE, ADDRESS, HOBBY, ENROLLDATE
+	      FROM MEMBER
+	      WHERE USERID = #{id}
+  </select>
+  
+  <select id="selectMemberSearch" parameterType="Search" resultType="Member">
+	    SELECT USERID, USERNAME, AGE, EMAIL, PHONE
+	    FROM MEMBER
+	   	<if test="condition == 'name'">
+	   	    WHERE USERNAME LIKE '%' || #{keyword} || '%'
+	   	</if>
+	   	<if test="condition == 'id'">
+	   	    WHERE USERID = #{keyword}
+	   	</if>
+	   	<if test="condition == 'age'">
+	   	    WHERE AGE >= TO_NUMBER(#{keyword})
+	   	</if>
+	    ORDER BY USERNAME
+  </select>
+  
+  <select id="selectMemberSearch2" parameterType="Search" resultType="Member">
+	    SELECT USERID, USERNAME, AGE, EMAIL, PHONE
+	    FROM MEMBER
+	    <choose>
+		   	<when test="condition == 'name'">
+		   	    WHERE USERNAME LIKE '%' || #{keyword} || '%'
+		   	</when>
+		   	<when test="condition == 'id'">
+		   	    WHERE USERID = #{keyword}
+		   	</when>
+		   	<otherwise>
+		   	    WHERE AGE >= TO_NUMBER(#{keyword})
+		   	</otherwise>
+	    </choose>
+	    ORDER BY USERNAME
+  </select>
+  
+  <update id="updateMember" parameterType="Member">
+	      UPDATE MEMBER 
+	      SET USERNAME = #{username}, AGE = #{age}, PHONE = #{phone} 
+	      WHERE USERID = #{userid}
+  </update>
+  
+  <delete id="deleteMember" parameterType="string">
+      	DELETE FROM MEMBER
+      	WHERE USERID = #{userid}
+  </delete>
+  
+  <insert id="insertMember" parameterType="Member">
+     	INSERT INTO MEMBER
+		VALUES(#{userid}, #{password}, #{username}, #{gender}, #{age}, #{email}, #{phone}, #{address}, #{hobby}, SYSDATE)
+  </insert>
+   -->
+  
+</mapper>
